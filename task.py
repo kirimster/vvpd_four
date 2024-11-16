@@ -1,3 +1,4 @@
+
 def display_menu():
     """Меню"""
     print(
@@ -35,35 +36,72 @@ def size_matrix():
         m=int(input("Сколько будет строчек?: "))
         if m<0:
             raise ValueError("Число должно быть положительным!!!")
-        n=int(input("\nСколько будет столбцов?: "))
+        n=int(input("Сколько будет столбцов?: "))
         if n<0:
             raise ValueError("Число должно быть положительным!!!")
     except ValueError as err:
         print(err.args)
         print("Ошибка: Неверный ввод. Пожалуйста, введите корректные данные.")
+    print(f"Ваш массив будет размерностью: {m} X {n}")
+    return m, n
+
+def create_massive_hand(m, n):
+    array = []
+    for i in range(m):
+        row = []
+        for j in range(n):
+            value = int(input(f"Введите элемент для массива [{i+1}][{j+1}]: "))
+            row.append(value)
+        array.append(row)
+    return array
 
 
-def create_massive():
+def create_massive_random(m, n):
+    return 2
+
+
+
+def create_massive(m, n):
     """Создание массива"""
-    while True:
-        display_create_massive()
-        menu_create_variable = input("Выберите опцию: ")
-        match menu_create_variable:
-            case "3":
-                break
+    try:
+        if not(n>0 and m>0):
+            raise ValueError("У вас не задана размерность матрицы!")
 
+        while True:
+            display_create_massive()
+            menu_create_variable = input("Выберите опцию: ")
+            match menu_create_variable:
+                case "1":
+                    array = create_massive_hand(m, n)
+                case "2":
+                    array = create_massive_random(m, n)
+                case "3":
+                    break
+            return array
+    except ValueError as err:
+        print(err.args)
+
+
+def print_matrix(array):
+    for row in array:
+        print(" ".join(map(str,row)))
 
 def main():
     """Основная функция"""
+    m, n = 0, 0
+    array = []
     while True:
         display_menu()
         menu_variable = input("Выберите опцию: ")
         match menu_variable:
             case "1":
-                size_matrix()
+                m, n = size_matrix()
             case "2":
-                create_massive()
+                array = create_massive(m, n)
+            case "3":
+                print_matrix(array)
             case "4":
+                print(1)
                 while True:
                     display_func_menu()
                     menu_func_variable = input("Выберите опцию: ")
