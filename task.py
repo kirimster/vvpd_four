@@ -86,6 +86,15 @@ def print_matrix(array):
     for row in array:
         print(" ".join(map(str,row)))
 
+
+def replace_numbers(array):
+    for i in range(len(array)):
+        for j in range(len(array[i])):
+            if array[i][j] < 10:
+                array[i][j] = 42
+    print_matrix(array)
+    return array
+
 def main():
     """Основная функция"""
     m, n = 0, 0
@@ -105,7 +114,8 @@ def main():
                     display_func_menu()
                     menu_func_variable = input("Выберите опцию: ")
                     match menu_func_variable:
-
+                        case "1":
+                            replace_numbers(array)
                         case "6":
                             break
                         case _:
