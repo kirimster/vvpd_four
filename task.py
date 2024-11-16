@@ -1,4 +1,4 @@
-
+import random
 def display_menu():
     """Меню"""
     print(
@@ -57,7 +57,7 @@ def create_massive_hand(m, n):
 
 
 def create_massive_random(m, n):
-    return 2
+    return [[random.randint(0, 100) for _ in range(m)] for _ in range(n)]
 
 
 
@@ -101,7 +101,6 @@ def main():
             case "3":
                 print_matrix(array)
             case "4":
-                print(1)
                 while True:
                     display_func_menu()
                     menu_func_variable = input("Выберите опцию: ")
