@@ -109,6 +109,20 @@ def sum_m_and_n(array):
     print(f"Сумма столбцов равна: {sum_n}")
 
 
+def diagonal_matrix(array):
+    if len(array) == len(array[0]):
+        left = []
+        right = []
+        for i in range(len(array)):
+            left.append(array[i][i])
+            right.append(array[i][len(array)-1-i])
+        print(f"Левая диагональ: {left}")
+        print(f"Правая диагональ: {right}")
+    else:
+        print("У вас не квадратная матрица, не получится вывести правую и левую диагональ")
+
+
+
 
 def main():
     """Основная функция"""
@@ -135,6 +149,10 @@ def main():
                             negative_numbers(array)
                         case "3":
                             sum_m_and_n(array)
+                        case "4":
+                            diagonal_matrix(array)
+                        case "5":
+                            2323
                         case "6":
                             break
                         case _:
