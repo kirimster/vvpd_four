@@ -15,7 +15,7 @@ def display_func_menu():
     """Показ функций для работы с матрицами"""
     print("\nКакую функцию хотите выполнить?:\n"
         "1. Замена всех элементов, которые меньше 10, числом 42\n"
-        "2. Печть индексов отрицательных элементов массива\n"
+        "2. Печать индексов отрицательных элементов массива\n"
         "3. Вычисление суммы элементов каждого столбца и строки\n"
         "4. Вывести левую и правую диагональ двумерного массива\n"
         "5. Нахождение столбца с наибольшой суммой элементов\n"
@@ -60,7 +60,6 @@ def create_massive_random(m, n):
     return [[random.randint(0, 100) for _ in range(m)] for _ in range(n)]
 
 
-
 def create_massive(m, n):
     """Создание массива"""
     try:
@@ -95,6 +94,22 @@ def replace_numbers(array):
     print_matrix(array)
     return array
 
+
+def negative_numbers(array):
+    for i in range(len(array)):
+        for j in range(len(array[i])):
+            if array[i][j] < 0:
+                print(f"Индекс отрицательного элемента: [{i}][{j}]")
+
+
+def sum_m_and_n(array):
+    sum_m = [sum(m) for m in array]
+    sum_n = [sum(array[i][j] for i in range(len(array))) for j in range(len(array[0]))]
+    print(f"Сумма строк равна: {sum_m}")
+    print(f"Сумма столбцов равна: {sum_n}")
+
+
+
 def main():
     """Основная функция"""
     m, n = 0, 0
@@ -116,6 +131,10 @@ def main():
                     match menu_func_variable:
                         case "1":
                             replace_numbers(array)
+                        case "2":
+                            negative_numbers(array)
+                        case "3":
+                            sum_m_and_n(array)
                         case "6":
                             break
                         case _:
