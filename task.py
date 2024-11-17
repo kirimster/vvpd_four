@@ -118,7 +118,7 @@ def negative_numbers(array, m, n):
 
 def sum_m_and_n(array, m, n):
     try:
-        if not (n > 0 and m > 0):
+        if not array or not array[0]:
             raise ValueError("У вас нет матрицы для выполнения этого действия!")
         sum_m = [sum(m) for m in array]
         sum_n = [sum(array[i][j] for i in range(len(array))) for j in range(len(array[0]))]
