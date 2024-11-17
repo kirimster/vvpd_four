@@ -81,49 +81,97 @@ def create_massive(m, n):
         print(err.args)
 
 
-def print_matrix(array):
-    for row in array:
-        print(" ".join(map(str,row)))
+def print_matrix(array, m, n):
+    try:
+        if not array or not array[0]:
+            raise ValueError("У вас нет матрицы для просмотра!")
+        for row in array:
+            print(" ".join(map(str,row)))
+    except ValueError as err:
+        print(err.args)
 
-
-def replace_numbers(array):
-    for i in range(len(array)):
-        for j in range(len(array[i])):
-            if array[i][j] < 10:
-                array[i][j] = 42
-    print_matrix(array)
-    return array
-
-
-def negative_numbers(array):
-    for i in range(len(array)):
-        for j in range(len(array[i])):
-            if array[i][j] < 0:
-                print(f"Индекс отрицательного элемента: [{i}][{j}]")
-
-
-def sum_m_and_n(array):
-    sum_m = [sum(m) for m in array]
-    sum_n = [sum(array[i][j] for i in range(len(array))) for j in range(len(array[0]))]
-    print(f"Сумма строк равна: {sum_m}")
-    print(f"Сумма столбцов равна: {sum_n}")
-
-
-def diagonal_matrix(array):
-    if len(array) == len(array[0]):
-        left = []
-        right = []
+def replace_numbers(array, m, n):
+    try:
+        if not array or not array[0]:
+            raise ValueError("У вас нет матрицы для выполнения этого действия!")
         for i in range(len(array)):
-            left.append(array[i][i])
-            right.append(array[i][len(array)-1-i])
-        print(f"Левая диагональ: {left}")
-        print(f"Правая диагональ: {right}")
-    else:
-        print("У вас не квадратная матрица, не получится вывести правую и левую диагональ")
+            for j in range(len(array[i])):
+                if array[i][j] < 10:
+                    array[i][j] = 42
+        print_matrix(array)
+        return array
+    except ValueError as err:
+        print(err.args)
 
 
-def max_n(array):
-    
+def negative_numbers(array, m, n):
+    try:
+        if not array or not array[0]:
+            raise ValueError("У вас нет матрицы для выполнения этого действия!")
+        for i in range(len(array)):
+            for j in range(len(array[i])):
+                if array[i][j] < 0:
+                    print(f"Индекс отрицательного элемента: [{i}][{j}]")
+    except ValueError as err:
+        print(err.args)
+
+
+def sum_m_and_n(array, m, n):
+    try:
+        if not (n > 0 and m > 0):
+            raise ValueError("У вас нет матрицы для выполнения этого действия!")
+        sum_m = [sum(m) for m in array]
+        sum_n = [sum(array[i][j] for i in range(len(array))) for j in range(len(array[0]))]
+        print(f"Сумма строк равна: {sum_m}")
+        print(f"Сумма столбцов равна: {sum_n}")
+    except ValueError as err:
+        print(err.args)
+
+
+
+def diagonal_matrix(array, m, n):
+    try:
+        if not array or not array[0]:
+            raise ValueError("У вас нет матрицы для выполнения этого действия!")
+        if len(array) == len(array[0]):
+            left = []
+            right = []
+            for i in range(len(array)):
+                left.append(array[i][i])
+                right.append(array[i][len(array)-1-i])
+            print(f"Левая диагональ: {left}")
+            print(f"Правая диагональ: {right}")
+        else:
+            print("У вас не квадратная матрица, не получится вывести правую и левую диагональ")
+    except ValueError as err:
+        print(err.args)
+
+
+
+def max_n(array, m, n):
+    try:
+        if not array or not array[0]:
+            raise ValueError("У вас нет матрицы для выполнения этого действия!")
+
+        n_sums = [0] * n
+
+        for i in range(n):
+            for j in range(m):
+                n_sums[j] += array[i][j]
+
+        max_sum_index = 0
+        max_sum_value = n_sums[0]
+
+        for j in range(1, n):
+            if n_sums[j] > max_sum_value:
+                max_sum_value = n_sums[j]
+                max_sum_index = j
+
+        print(f"Самая большая сумма находится в столбце под номером {max_sum_index+1}")
+    except ValueError as err:
+        print(err.args)
+
+
 def main():
     """Основная функция"""
     m, n = 0, 0
@@ -137,22 +185,22 @@ def main():
             case "2":
                 array = create_massive(m, n)
             case "3":
-                print_matrix(array)
+                print_matrix(array, m, n)
             case "4":
                 while True:
                     display_func_menu()
                     menu_func_variable = input("Выберите опцию: ")
                     match menu_func_variable:
                         case "1":
-                            replace_numbers(array)
+                            replace_numbers(array, m, n)
                         case "2":
-                            negative_numbers(array)
+                            negative_numbers(array, m, n)
                         case "3":
-                            sum_m_and_n(array)
+                            sum_m_and_n(array, m, n)
                         case "4":
-                            diagonal_matrix(array)
+                            diagonal_matrix(array, m, n)
                         case "5":
-                            2323
+                            max_n(array, m, n)
                         case "6":
                             break
                         case _:
